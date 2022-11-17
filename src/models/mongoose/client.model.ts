@@ -4,7 +4,7 @@ const Client = new Schema({
   name: {
     type: String,
   },
-  lastname: {
+  lastName: {
     type: String,
   },
   dni: {
