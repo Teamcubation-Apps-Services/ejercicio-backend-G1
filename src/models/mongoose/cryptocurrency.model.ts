@@ -1,6 +1,6 @@
-import { Schema } from "mongoose";
+import mongoose from "mongoose";
 
-const Cryptocurrency = new Schema({
+const schema = new mongoose.Schema({
   name: {
     type: String,
   },
@@ -14,5 +14,7 @@ const Cryptocurrency = new Schema({
     type: Number,
   },
 });
+
+const Cryptocurrency = mongoose.model("Cryptocurrency", schema);
 
 export default Cryptocurrency;

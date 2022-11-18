@@ -1,6 +1,6 @@
-import { Schema } from "mongoose";
+import mongoose from "mongoose";
 
-const Movement = new Schema({
+const schema = new mongoose.Schema({
   cryptocurrency: {
     type: String,
   },
@@ -20,5 +20,7 @@ const Movement = new Schema({
     type: String,
   },
 });
+
+const Movement = mongoose.model("Movement", schema);
 
 export default Movement;
