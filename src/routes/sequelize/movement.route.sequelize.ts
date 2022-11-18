@@ -6,14 +6,14 @@ import {
   deleteMovement,
 } from "../../controllers/sequelize/movement.controller.sequelize";
 
-const movementSequelizeRoute = Router();
+const movementSequelizeRoutes = Router();
 
-movementSequelizeRoute.get("/get/:id", getMovement);
+movementSequelizeRoutes.get("/get/:id", getMovement);
 
-movementSequelizeRoute.post("/create", createMovement);
+movementSequelizeRoutes.post("/create", createMovement);
 
-movementSequelizeRoute.patch("/update/:id", updateMovement);
+movementSequelizeRoutes.patch("/update/:id", updateMovement);
 
-movementSequelizeRoute.delete("/delete/:id", deleteMovement);
+movementSequelizeRoutes.delete("/delete/:id", deleteMovement);
 
-export default movementSequelizeRoute;
+export default movementSequelizeRoutes;
