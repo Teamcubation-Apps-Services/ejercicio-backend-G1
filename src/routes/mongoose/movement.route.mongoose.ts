@@ -4,7 +4,7 @@ import {
   createMovement,
   updateMovement,
   deleteMovement,
-} from "../../controllers/mongo/movement.controller.mongo";
+} from "../../controllers/mongoose/movement.controller.mongoose";
 
 const movementMongoRoutes = Router();
 

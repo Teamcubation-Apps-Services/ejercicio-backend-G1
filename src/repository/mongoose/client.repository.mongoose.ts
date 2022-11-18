@@ -1,4 +1,4 @@
-import Client from "../../models/mongoose/client.model";
+import Client from "../../models/mongoose/client.model.mongoose";
 
 async function find(name: string) {
   return await Client.find({ name });

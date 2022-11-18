@@ -4,7 +4,7 @@ import {
   createClient,
   updateClient,
   deleteClient,
-} from "../../controllers/mongo/client.controller.mongo";
+} from "../../controllers/mongoose/client.controller.mongoose";
 
 const clientMongoRoutes = Router();
 

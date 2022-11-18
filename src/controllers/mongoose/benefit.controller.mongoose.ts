@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import benefitRepository from "../../repository/mongo/benefit.repository.mongo";
+import benefitRepository from "../../repository/mongoose/benefit.repository.mongoose";
 
 async function getBenefit(req: Request, res: Response) {
   const { name } = req.params;

@@ -1,4 +1,4 @@
-import Benefit from "../../models/mongoose/benefit.model";
+import Benefit from "../../models/mongoose/benefit.model.mongoose";
 
 async function find(name: string) {
   return await Benefit.find({ name });

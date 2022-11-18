@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import movementRepository from "../../repository/mongo/movement.repository.mongo";
+import movementRepository from "../../repository/mongoose/movement.repository.mongoose";
 
 async function getMovement(req: Request, res: Response) {
   const { id } = req.params;

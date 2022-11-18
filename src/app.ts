@@ -1,9 +1,9 @@
 import express from "express";
 import "./config/db.mongoose.config";
-import benefitMongoRoutes from "./routes/mongo/benefit.route.mongo";
-import clientMongoRoutes from "./routes/mongo/client.route.mongo";
-import cryptocurrencyMongoRoutes from "./routes/mongo/cryptocurrency.route.mongo";
-import movementMongoRoutes from "./routes/mongo/movement.route.mongo";
+import benefitMongoRoutes from "./routes/mongoose/benefit.route.mongoose";
+import clientMongoRoutes from "./routes/mongoose/client.route.mongoose";
+import cryptocurrencyMongoRoutes from "./routes/mongoose/cryptocurrency.route.mongoose";
+import movementMongoRoutes from "./routes/mongoose/movement.route.mongoose";
 import balanceSequelizeRoutes from "./routes/sequelize/balance.route.sequelize";
 import clientSequelizeRoutes from "./routes/sequelize/client.route.sequelize";
 import cryptocurrencySequelizeRoutes from "./routes/sequelize/cryptocurrency.route.sequelize";

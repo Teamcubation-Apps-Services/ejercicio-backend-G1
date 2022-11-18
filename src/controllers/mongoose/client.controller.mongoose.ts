@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import clientRepository from "../../repository/mongo/client.repository.mongo";
+import clientRepository from "../../repository/mongoose/client.repository.mongoose";
 
 async function getClient(req: Request, res: Response) {
   const { name } = req.params;
