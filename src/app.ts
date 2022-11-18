@@ -1,5 +1,5 @@
 import express from "express";
-
+import "./config/db.mongoose.config";
 const app = express();
 
 app.use(express.json());

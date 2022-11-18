@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "dev": "npx nodemon src/index.ts",
+    "build": "npx tsc"
+  },
   "devDependencies": {
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.9",
