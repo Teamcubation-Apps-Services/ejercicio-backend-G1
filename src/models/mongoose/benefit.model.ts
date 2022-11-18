@@ -1,6 +1,6 @@
-import { Schema } from "mongoose";
+import mongoose from "mongoose";
 
-const Benefit = new Schema({
+const schema = new mongoose.Schema({
   name: {
     type: String,
   },
@@ -14,5 +14,7 @@ const Benefit = new Schema({
     type: String,
   },
 });
+
+const Benefit = mongoose.model("Benefit", schema);
 
 export default Benefit;
