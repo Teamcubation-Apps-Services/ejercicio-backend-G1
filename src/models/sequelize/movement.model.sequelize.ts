@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelizeDB from "../../config/db.sequelize.config";
-import Client from "./client.model";
-import Cryptocurrency from "./cryptocurrency.model";
+import Client from "./client.model.sequelize";
+import Cryptocurrency from "./cryptocurrency.model.sequelize";
 
 const Movement = sequelizeDB.define("movement", {
   from: {
