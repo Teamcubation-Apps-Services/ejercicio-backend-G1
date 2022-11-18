@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelizeDB from "../../config/db.sequelize.config";
-import Client from "./client.model";
+import Client from "./client.model.sequelize";
 
 const Movement = sequelizeDB.define("movement", {
   from: {

@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelizeDB from "../../config/db.sequelize.config";
-import Client from "./client.model";
+import Client from "./client.model.sequelize";
 
 const Balance = sequelizeDB.define("balance", {
   client: {
@@ -21,6 +21,9 @@ const Balance = sequelizeDB.define("balance", {
 Client.hasMany(Balance, {
   foreignKey: "client",
 });
-Balance.belongsTo(Client);
+Balance.belongsTo(Client, {
+  foreignKey: "client",
+  as: "Client",
+});
 
 export default Balance;

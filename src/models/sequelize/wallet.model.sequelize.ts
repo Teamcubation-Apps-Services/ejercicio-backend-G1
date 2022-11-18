@@ -1,20 +1,20 @@
 import { DataTypes } from "sequelize";
 import sequelizeDB from "../../config/db.sequelize.config";
 
-const Cryptocurrency = sequelizeDB.define("cryptocurrency", {
-  nombre: {
+const Wallet = sequelizeDB.define("wallet", {
+  name: {
     type: DataTypes.STRING,
     primaryKey: true,
   },
-  price: {
+  discount: {
     type: DataTypes.INTEGER,
   },
-  anualRevenue: {
+  maxRefound: {
     type: DataTypes.INTEGER,
   },
-  description: {
+  vigency: {
     type: DataTypes.STRING,
   },
 });
 
-export default Cryptocurrency;
+export default Wallet;
