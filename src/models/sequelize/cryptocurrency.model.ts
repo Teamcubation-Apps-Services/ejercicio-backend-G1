@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelizeDB from "../../config/db.sequelize.config";
 
 const Cryptocurrency = sequelizeDB.define("cryptocurrency", {
-  nombre: {
+  name: {
     type: DataTypes.STRING,
     primaryKey: true,
   },
