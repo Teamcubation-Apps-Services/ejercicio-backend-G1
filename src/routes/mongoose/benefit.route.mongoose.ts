@@ -4,7 +4,7 @@ import {
   createBenefit,
   updateBenefit,
   deleteBenefit,
-} from "../../controllers/mongo/benefit.controller.mongo";
+} from "../../controllers/mongoose/benefit.controller.mongoose";
 
 const benefitMongoRoutes = Router();
 

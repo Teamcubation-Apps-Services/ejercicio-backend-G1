@@ -1,4 +1,4 @@
-import Movement from "../../models/mongoose/movement.model";
+import Movement from "../../models/mongoose/movement.model.mongoose";
 
 async function find(id: string) {
   return await Movement.find({ id });

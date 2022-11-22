@@ -1,7 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelizeDB from "../../config/db.sequelize.config";
 
-
 const Client = sequelizeDB.define("client", {
   name: {
     type: DataTypes.STRING,
@@ -20,6 +19,5 @@ const Client = sequelizeDB.define("client", {
     type: DataTypes.INTEGER,
   },
 });
-
 
 export default Client;

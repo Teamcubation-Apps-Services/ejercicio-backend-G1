@@ -4,6 +4,7 @@ import sequelizeDB from "../../config/db.sequelize.config";
 const Wallet = sequelizeDB.define("wallet", {
   name: {
     type: DataTypes.STRING,
+    primaryKey: true,
   },
   discount: {
     type: DataTypes.INTEGER,

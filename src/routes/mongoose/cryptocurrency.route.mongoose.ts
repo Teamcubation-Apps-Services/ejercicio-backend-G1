@@ -4,7 +4,7 @@ import {
   createCryptocurrency,
   updateCryptocurrency,
   deleteCryptocurrency,
-} from "../../controllers/mongo/cryptocurrency.controller.mongo";
+} from "../../controllers/mongoose/cryptocurrency.controller.mongoose";
 
 const cryptocurrencyMongoRoutes = Router();
 

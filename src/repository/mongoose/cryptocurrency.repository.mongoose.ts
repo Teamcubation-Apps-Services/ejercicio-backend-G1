@@ -1,4 +1,4 @@
-import Cryptocurrency from "../../models/mongoose/cryptocurrency.model";
+import Cryptocurrency from "../../models/mongoose/cryptocurrency.model.mongoose";
 
 async function find(name: string) {
   return await Cryptocurrency.find({ name });

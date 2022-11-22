@@ -1,7 +1,7 @@
-import Client from "../../models/sequelize/client.model";
+import Client from "../../models/mongoose/client.model.mongoose";
 
 async function find(name: string) {
-  return await Client.findByPk(name);
+  return await Client.find({ name });
 }
 
 async function create(client: any) {
@@ -9,11 +9,11 @@ async function create(client: any) {
 }
 
 async function update(name: string, client: any) {
-  return await Client.update(client, { where: { name } });
+  return await Client.updateOne({ name }, client);
 }
 
 async function remove(name: string) {
-  return await Client.destroy({ where: { name } });
+  return await Client.deleteOne({ name });
 }
 
 const clientRepository = {

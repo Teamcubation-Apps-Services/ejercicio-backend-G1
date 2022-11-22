@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import cryptocurrencyRepository from "../../repository/mongo/cryptocurrency.repository.mongo";
+import cryptocurrencyRepository from "../../repository/mongoose/cryptocurrency.repository.mongoose";
 
 async function getCryptocurrency(req: Request, res: Response) {
   const { name } = req.params;

@@ -21,6 +21,9 @@ const Balance = sequelizeDB.define("balance", {
 Client.hasMany(Balance, {
   foreignKey: "client",
 });
-Balance.belongsTo(Client);
+Balance.belongsTo(Client, {
+  foreignKey: "client",
+  as: "Client",
+});
 
 export default Balance;
