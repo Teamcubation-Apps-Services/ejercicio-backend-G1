@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelizeDB from "../../config/db.sequelize.config";
 import Client from "./client.model.sequelize";
+import Cryptocurrency from "./cryptocurrency.model.sequelize";
 
 const Movement = sequelizeDB.define("movement", {
   from: {
@@ -28,6 +29,10 @@ const Movement = sequelizeDB.define("movement", {
   },
   cryptocurrency: {
     type: DataTypes.STRING,
+    references: {
+      model: Cryptocurrency,
+      key: "name",
+    },
   },
 });
 
@@ -37,7 +42,11 @@ Client.hasMany(Movement, {
 Client.hasMany(Movement, {
   foreignKey: "to",
 });
-Movement.belongsTo(Client);
+Cryptocurrency.hasMany(Movement, {
+  foreignKey: "cryptocurrency",
+});
 
-//TODO: add relation with cryptocurrency
+Movement.belongsTo(Client);
+Movement.belongsTo(Cryptocurrency);
+
 export default Movement;
