@@ -17,7 +17,7 @@ app.use(express.json());
 app.use("/mongo/benefit", benefitMongoRoutes);
 app.use("/mongo/client", clientMongoRoutes);
 app.use("/mongo/cryptocurrency", cryptocurrencyMongoRoutes);
-app.use("/movement", movementMongoRoutes);
+app.use("/mongo/movement", movementMongoRoutes);
 
 app.use("/sequelize/balance", balanceSequelizeRoutes);
 app.use("/sequelize/client", clientSequelizeRoutes);
