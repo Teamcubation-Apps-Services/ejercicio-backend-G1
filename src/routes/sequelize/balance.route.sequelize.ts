@@ -8,12 +8,12 @@ import {
 
 const balanceSequelizeRoutes = Router();
 
-balanceSequelizeRoutes.get("/get/:name", getBalance);
+balanceSequelizeRoutes.get("/get/:client/:crypto", getBalance);
 
-balanceSequelizeRoutes.post("/create", createBalance);
+balanceSequelizeRoutes.post("/create/:client", createBalance);
 
-balanceSequelizeRoutes.patch("/update/:name", updateBalance);
+balanceSequelizeRoutes.patch("/update/:client/:crypto", updateBalance);
 
-balanceSequelizeRoutes.delete("/delete/:name", deleteBalance);
+balanceSequelizeRoutes.delete("/delete/:client/:crypto", deleteBalance);
 
 export default balanceSequelizeRoutes;

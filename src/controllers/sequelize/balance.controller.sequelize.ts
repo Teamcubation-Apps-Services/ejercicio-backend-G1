@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import balanceRepository from "../../repository/sequelize/balance.repository.sequelize";
 
 async function getBalance(req: Request, res: Response) {
-  const { name } = req.params;
-  const balance = await balanceRepository.find(name);
+  const { name, crypto } = req.params;
+  const balance = await balanceRepository.find(name, crypto);
 
   try {
     if (balance) {
@@ -22,7 +22,10 @@ async function createBalance(req: Request, res: Response) {
   const { balanceData } = req.body;
 
   try {
-    const existingBalance = await balanceRepository.find(balanceData.name);
+    const existingBalance = await balanceRepository.find(
+      balanceData.name,
+      balanceData.cryptocurrency
+    );
 
     if (existingBalance) {
       res
@@ -42,11 +45,11 @@ async function createBalance(req: Request, res: Response) {
 }
 
 async function updateBalance(req: Request, res: Response) {
-  const { name } = req.params;
+  const { name, crypto } = req.params;
   const { balanceData } = req.body;
 
   try {
-    const updatedID = await balanceRepository.update(name, balanceData);
+    const updatedID = await balanceRepository.update(name, crypto, balanceData);
 
     if (updatedID) {
       res.status(204).json({ message: "Balance succesfully updated" });
@@ -61,10 +64,10 @@ async function updateBalance(req: Request, res: Response) {
 }
 
 async function deleteBalance(req: Request, res: Response) {
-  const { name } = req.params;
+  const { name, crypto } = req.params;
 
   try {
-    const deletedID = await balanceRepository.remove(name);
+    const deletedID = await balanceRepository.remove(name, crypto);
 
     if (deletedID) {
       res.status(204).json({ message: "Balance succesfully deleted" });
