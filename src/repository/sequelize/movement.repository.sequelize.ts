@@ -1,19 +1,19 @@
 import Movement from "../../models/sequelize/movement.model.sequelize";
 
-async function find(name: string) {
-  return await Movement.findByPk(name);
+async function find(id: string) {
+  return await Movement.findByPk(id);
 }
 
 async function create(movement: any) {
   return await Movement.create(movement);
 }
 
-async function update(name: string, movement: any) {
-  return await Movement.update(movement, { where: { name } });
+async function update(id: string, movementData: any) {
+  return await Movement.update(movementData, { where: { id } });
 }
 
-async function remove(name: string) {
-  return await Movement.destroy({ where: { name } });
+async function remove(id: string) {
+  return await Movement.destroy({ where: { id } });
 }
 
 const movementRepository = {
