@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import e, { Request, Response } from "express";
 import benefitRepository from "../../repository/mongoose/benefit.repository.mongoose";
 
 async function getBenefit(req: Request, res: Response) {
@@ -11,10 +11,8 @@ async function getBenefit(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "The benefit doesn't exist" });
     }
-  } catch (e) {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
@@ -34,10 +32,8 @@ async function createBenefit(req: Request, res: Response) {
         res.status(201).json({ message: "Benefit succesfully created" });
       }
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
@@ -53,10 +49,8 @@ async function updateBenefit(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "Benefit doesn't exist with that name" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
@@ -71,10 +65,8 @@ async function deleteBenefit(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "Benefit doesn't exist with that name" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 

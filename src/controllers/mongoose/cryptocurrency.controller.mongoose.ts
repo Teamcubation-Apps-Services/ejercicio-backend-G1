@@ -11,10 +11,8 @@ async function getCryptocurrency(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "The cryptocurrency doesn't exist" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
@@ -38,10 +36,8 @@ async function createCryptocurrency(req: Request, res: Response) {
         res.status(201).json({ message: "Cryptocurrency succesfully created" });
       }
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
@@ -62,10 +58,8 @@ async function updateCryptocurrency(req: Request, res: Response) {
         .status(404)
         .json({ message: "Cryptocurrency doesn't exist with that name" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
@@ -82,10 +76,8 @@ async function deleteCryptocurrency(req: Request, res: Response) {
         .status(404)
         .json({ message: "Cryptocurrency doesn't exist with that name" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
