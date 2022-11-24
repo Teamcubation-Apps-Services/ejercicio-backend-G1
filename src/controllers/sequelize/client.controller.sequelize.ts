@@ -19,7 +19,7 @@ async function getClient(req: Request, res: Response) {
 }
 
 async function createClient(req: Request, res: Response) {
-  const { clientData } = req.body;
+  const clientData = req.body;
 
   try {
     const existingClient = await clientRepository.find(clientData.name);
@@ -41,7 +41,7 @@ async function createClient(req: Request, res: Response) {
 
 async function updateClient(req: Request, res: Response) {
   const { name } = req.params;
-  const { clientData } = req.body;
+  const clientData = req.body;
 
   try {
     const updatedID = await clientRepository.update(name, clientData);

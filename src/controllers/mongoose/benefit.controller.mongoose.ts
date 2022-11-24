@@ -11,7 +11,7 @@ async function getBenefit(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "The benefit doesn't exist" });
     }
-  } catch {
+  } catch (e) {
     res
       .status(500)
       .json({ message: "There was an error querying the database, try again" });
@@ -19,7 +19,7 @@ async function getBenefit(req: Request, res: Response) {
 }
 
 async function createBenefit(req: Request, res: Response) {
-  const { benefitData } = req.body;
+  const benefitData = req.body;
 
   try {
     const existingBenefit = await benefitRepository.find(benefitData.name);
@@ -43,7 +43,7 @@ async function createBenefit(req: Request, res: Response) {
 
 async function updateBenefit(req: Request, res: Response) {
   const { name } = req.params;
-  const { benefitData } = req.body;
+  const benefitData = req.body;
 
   try {
     const updatedID = await benefitRepository.update(name, benefitData);

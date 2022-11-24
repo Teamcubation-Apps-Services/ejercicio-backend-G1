@@ -19,7 +19,7 @@ async function getBalance(req: Request, res: Response) {
 }
 
 async function createBalance(req: Request, res: Response) {
-  const { balanceData } = req.body;
+  const balanceData = req.body;
 
   try {
     const existingBalance = await balanceRepository.find(
@@ -46,7 +46,7 @@ async function createBalance(req: Request, res: Response) {
 
 async function updateBalance(req: Request, res: Response) {
   const { name, crypto } = req.params;
-  const { balanceData } = req.body;
+  const balanceData = req.body;
 
   try {
     const updatedID = await balanceRepository.update(name, crypto, balanceData);

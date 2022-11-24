@@ -19,7 +19,7 @@ async function getWallet(req: Request, res: Response) {
 }
 
 async function createWallet(req: Request, res: Response) {
-  const { walletData } = req.body;
+  const walletData = req.body;
 
   try {
     const existingWallet = await walletRepository.find(walletData.name);
@@ -41,7 +41,7 @@ async function createWallet(req: Request, res: Response) {
 
 async function updateWallet(req: Request, res: Response) {
   const { name } = req.params;
-  const { walletData } = req.body;
+  const walletData = req.body;
 
   try {
     const updatedID = await walletRepository.update(name, walletData);

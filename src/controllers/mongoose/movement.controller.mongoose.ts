@@ -19,7 +19,7 @@ async function getMovement(req: Request, res: Response) {
 }
 
 async function createMovement(req: Request, res: Response) {
-  const { movementData } = req.body;
+  const movementData = req.body;
 
   try {
     const newMovement = await movementRepository.create(movementData);
@@ -36,7 +36,7 @@ async function createMovement(req: Request, res: Response) {
 
 async function updateMovement(req: Request, res: Response) {
   const { id } = req.params;
-  const { movementData } = req.body;
+  const movementData = req.body;
 
   try {
     const updatedID = await movementRepository.update(id, movementData);

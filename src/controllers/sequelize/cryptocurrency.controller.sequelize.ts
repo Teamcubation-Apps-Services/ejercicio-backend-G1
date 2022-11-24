@@ -19,7 +19,7 @@ async function getCryptocurrency(req: Request, res: Response) {
 }
 
 async function createCryptocurrency(req: Request, res: Response) {
-  const { cryptocurrencyData } = req.body;
+  const cryptocurrencyData = req.body;
 
   try {
     const existingCryptocurrency = await cryptocurrencyRepository.find(
@@ -47,7 +47,7 @@ async function createCryptocurrency(req: Request, res: Response) {
 
 async function updateCryptocurrency(req: Request, res: Response) {
   const { name } = req.params;
-  const { cryptocurrencyData } = req.body;
+  const cryptocurrencyData = req.body;
 
   try {
     const updatedID = await cryptocurrencyRepository.update(
