@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import cryptocurrencyRepository from "../../repository/mongoose/cryptocurrency.repository.mongoose";
+import cryptocurrencyRepository from "../../repository/sequelize/cryptocurrency.repository.sequelize";
 
 async function getCryptocurrency(req: Request, res: Response) {
   const { name } = req.params;
