@@ -7,6 +7,11 @@ try {
   sequelizeDB = new Sequelize(process.env.DB_POSTGRES_URL!, {
     dialect: "postgres",
   });
+
+  sequelizeDB.sync({
+    alter: true,
+  });
+
   console.log("Connected to Postgres DB");
 } catch (e) {
   throw e;
