@@ -1,7 +1,7 @@
 import Benefit from "../../models/mongoose/benefit.model.mongoose";
 
 async function find(name: string) {
-  return await Benefit.find({ name });
+  return await Benefit.findOne({ name });
 }
 
 async function create(benefit: any) {

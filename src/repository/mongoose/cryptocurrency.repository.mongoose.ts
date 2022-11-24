@@ -1,7 +1,7 @@
 import Cryptocurrency from "../../models/mongoose/cryptocurrency.model.mongoose";
 
 async function find(name: string) {
-  return await Cryptocurrency.find({ name });
+  return await Cryptocurrency.findOne({ name });
 }
 
 async function create(cryptocurrency: any) {

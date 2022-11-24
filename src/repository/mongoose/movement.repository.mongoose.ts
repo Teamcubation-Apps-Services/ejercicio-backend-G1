@@ -1,7 +1,7 @@
 import Movement from "../../models/mongoose/movement.model.mongoose";
 
 async function find(id: string) {
-  return await Movement.find({ id });
+  return await Movement.findOne({ id });
 }
 
 async function create(movement: any) {
