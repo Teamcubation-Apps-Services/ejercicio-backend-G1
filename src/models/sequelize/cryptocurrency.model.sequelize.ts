@@ -8,12 +8,15 @@ const Cryptocurrency = sequelizeDB.define("cryptocurrency", {
   },
   price: {
     type: DataTypes.INTEGER,
+    allowNull: false,
   },
   anualRevenue: {
     type: DataTypes.INTEGER,
+    allowNull: false,
   },
   description: {
     type: DataTypes.STRING,
+    allowNull: false,
   },
 });
 

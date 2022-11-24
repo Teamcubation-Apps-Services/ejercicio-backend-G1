@@ -9,12 +9,15 @@ const Balance = sequelizeDB.define("balance", {
       model: Client,
       key: "name",
     },
+    allowNull: false,
   },
   amount: {
     type: DataTypes.INTEGER,
+    allowNull: false,
   },
   cryptocurrency: {
     type: DataTypes.STRING,
+    allowNull: false,
   },
 });
 
