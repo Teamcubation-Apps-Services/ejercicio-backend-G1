@@ -9,10 +9,13 @@ import clientSequelizeRoutes from "./routes/sequelize/client.route.sequelize";
 import cryptocurrencySequelizeRoutes from "./routes/sequelize/cryptocurrency.route.sequelize";
 import movementSequelizeRoutes from "./routes/sequelize/movement.route.sequelize";
 import walletSequelizeRoutes from "./routes/sequelize/wallet.route.sequelize";
+import { swaggerServe, swaggerConf } from "./utils/swagger";
 
 const app = express();
 
 app.use(express.json());
+
+app.use("/api-doc", swaggerServe, swaggerConf);
 
 app.use("/mongo/benefit", benefitMongoRoutes);
 app.use("/mongo/client", clientMongoRoutes);
