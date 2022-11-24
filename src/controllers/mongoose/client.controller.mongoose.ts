@@ -29,7 +29,7 @@ async function createClient(req: Request, res: Response) {
     } else {
       const newClient = await clientRepository.create(clientData);
       if (newClient) {
-        res.status(201).json({ error: "Client succesfully created" });
+        res.status(201).json({ message: "Client succesfully created" });
       }
     }
   } catch {

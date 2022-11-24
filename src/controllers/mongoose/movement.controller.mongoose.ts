@@ -25,7 +25,7 @@ async function createMovement(req: Request, res: Response) {
     const newMovement = await movementRepository.create(movementData);
 
     if (newMovement) {
-      res.status(201).json({ error: "Movement succesfully created" });
+      res.status(201).json({ message: "Movement succesfully created" });
     }
   } catch {
     res

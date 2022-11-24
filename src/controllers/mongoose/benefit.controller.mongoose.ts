@@ -31,7 +31,7 @@ async function createBenefit(req: Request, res: Response) {
     } else {
       const newBenefit = await benefitRepository.create(benefitData);
       if (newBenefit) {
-        res.status(201).json({ error: "Benefit succesfully created" });
+        res.status(201).json({ message: "Benefit succesfully created" });
       }
     }
   } catch {
