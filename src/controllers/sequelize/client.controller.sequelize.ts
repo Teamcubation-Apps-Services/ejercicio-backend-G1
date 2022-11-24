@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import clientRepository from "../../repository/mongoose/client.repository.mongoose";
+import clientRepository from "../../repository/sequelize/client.repository.sequelize";
 
 async function getClient(req: Request, res: Response) {
   const { name } = req.params;

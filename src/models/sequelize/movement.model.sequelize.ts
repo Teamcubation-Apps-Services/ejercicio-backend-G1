@@ -52,6 +52,6 @@ Cryptocurrency.hasMany(Movement, {
 });
 
 Movement.belongsTo(Client);
-Movement.belongsTo(Cryptocurrency);
+Movement.belongsTo(Cryptocurrency, { as: "Cryptocurrency" });
 
 export default Movement;
