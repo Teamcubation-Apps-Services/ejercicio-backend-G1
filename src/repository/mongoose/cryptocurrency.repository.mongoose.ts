@@ -1,14 +1,15 @@
 import Cryptocurrency from "../../models/mongoose/cryptocurrency.model.mongoose";
+import { MongoCryptocurrency } from "../../mongoTypes";
 
 async function find(name: string) {
   return await Cryptocurrency.findOne({ name });
 }
 
-async function create(cryptocurrency: any) {
+async function create(cryptocurrency: MongoCryptocurrency) {
   return await Cryptocurrency.create(cryptocurrency);
 }
 
-async function update(name: string, cryptocurrency: any) {
+async function update(name: string, cryptocurrency: MongoCryptocurrency) {
   return await Cryptocurrency.updateOne({ name }, cryptocurrency);
 }
 

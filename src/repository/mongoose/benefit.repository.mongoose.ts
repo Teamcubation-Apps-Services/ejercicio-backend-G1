@@ -1,14 +1,15 @@
 import Benefit from "../../models/mongoose/benefit.model.mongoose";
+import { MongoBenefit } from "../../mongoTypes";
 
 async function find(name: string) {
   return await Benefit.findOne({ name });
 }
 
-async function create(benefit: any) {
+async function create(benefit: MongoBenefit) {
   return await Benefit.create(benefit);
 }
 
-async function update(name: string, benefit: any) {
+async function update(name: string, benefit: MongoBenefit) {
   return await Benefit.updateOne({ name }, benefit);
 }
 
