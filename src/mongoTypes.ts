@@ -9,7 +9,7 @@ type MongoClient = {
   name: string;
   lastName: string;
   dni: string;
-  MongoMovements: MongoMovement[];
+  mongoMovements: MongoMovement[];
 };
 
 type MongoCryptocurrency = {
@@ -20,8 +20,8 @@ type MongoCryptocurrency = {
 };
 
 type MongoMovement = {
-  MongoCryptocurrency: string;
-  MongoMovementType: string;
+  cryptocurrency: string;
+  movementType: string;
   amount: number;
   date: Date;
   from: string;
