@@ -11,15 +11,13 @@ async function getWallet(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "The wallet doesn't exist" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
 async function createWallet(req: Request, res: Response) {
-  const { walletData } = req.body;
+  const walletData = req.body;
 
   try {
     const existingWallet = await walletRepository.find(walletData.name);
@@ -32,16 +30,14 @@ async function createWallet(req: Request, res: Response) {
         res.status(201).json({ error: "Wallet succesfully created" });
       }
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
 async function updateWallet(req: Request, res: Response) {
   const { name } = req.params;
-  const { walletData } = req.body;
+  const walletData = req.body;
 
   try {
     const updatedID = await walletRepository.update(name, walletData);
@@ -51,10 +47,8 @@ async function updateWallet(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "Wallet doesn't exist with that name" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
@@ -69,10 +63,8 @@ async function deleteWallet(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "Wallet doesn't exist with that name" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 

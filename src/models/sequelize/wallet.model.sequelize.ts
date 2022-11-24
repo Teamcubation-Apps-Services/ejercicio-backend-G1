@@ -8,12 +8,15 @@ const Wallet = sequelizeDB.define("wallet", {
   },
   discount: {
     type: DataTypes.INTEGER,
+    allowNull: false,
   },
   maxRefound: {
     type: DataTypes.INTEGER,
+    allowNull: false,
   },
   vigency: {
     type: DataTypes.STRING,
+    allowNull: false,
   },
 });
 

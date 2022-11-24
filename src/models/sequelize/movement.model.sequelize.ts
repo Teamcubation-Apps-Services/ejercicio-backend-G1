@@ -10,15 +10,19 @@ const Movement = sequelizeDB.define("movement", {
       model: Client,
       key: "name",
     },
+    allowNull: false,
   },
   type: {
     type: DataTypes.STRING,
+    allowNull: false,
   },
   amount: {
     type: DataTypes.INTEGER,
+    allowNull: false,
   },
   fee: {
     type: DataTypes.INTEGER,
+    allowNull: false,
   },
   to: {
     type: DataTypes.STRING,
@@ -26,6 +30,7 @@ const Movement = sequelizeDB.define("movement", {
       model: Client,
       key: "name",
     },
+    allowNull: false,
   },
   cryptocurrency: {
     type: DataTypes.STRING,

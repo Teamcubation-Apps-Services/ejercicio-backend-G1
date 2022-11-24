@@ -11,15 +11,13 @@ async function getBalance(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "The balance doesn't exist" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
 async function createBalance(req: Request, res: Response) {
-  const { balanceData } = req.body;
+  const balanceData = req.body;
 
   try {
     const existingBalance = await balanceRepository.find(
@@ -37,16 +35,14 @@ async function createBalance(req: Request, res: Response) {
         res.status(201).json({ error: "Balance succesfully created" });
       }
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
 async function updateBalance(req: Request, res: Response) {
   const { name, crypto } = req.params;
-  const { balanceData } = req.body;
+  const balanceData = req.body;
 
   try {
     const updatedID = await balanceRepository.update(name, crypto, balanceData);
@@ -56,10 +52,8 @@ async function updateBalance(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "Balance doesn't exist with that name" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
@@ -74,10 +68,8 @@ async function deleteBalance(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "Balance doesn't exist with that name" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 

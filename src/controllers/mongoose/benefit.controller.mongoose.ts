@@ -11,15 +11,13 @@ async function getBenefit(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "The benefit doesn't exist" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
 async function createBenefit(req: Request, res: Response) {
-  const { benefitData } = req.body;
+  const benefitData = req.body;
 
   try {
     const existingBenefit = await benefitRepository.find(benefitData.name);
@@ -31,19 +29,17 @@ async function createBenefit(req: Request, res: Response) {
     } else {
       const newBenefit = await benefitRepository.create(benefitData);
       if (newBenefit) {
-        res.status(201).json({ error: "Benefit succesfully created" });
+        res.status(201).json({ message: "Benefit succesfully created" });
       }
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
 async function updateBenefit(req: Request, res: Response) {
   const { name } = req.params;
-  const { benefitData } = req.body;
+  const benefitData = req.body;
 
   try {
     const updatedID = await benefitRepository.update(name, benefitData);
@@ -53,10 +49,8 @@ async function updateBenefit(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "Benefit doesn't exist with that name" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
@@ -71,10 +65,8 @@ async function deleteBenefit(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "Benefit doesn't exist with that name" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
