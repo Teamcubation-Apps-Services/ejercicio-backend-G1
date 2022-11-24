@@ -11,10 +11,8 @@ async function getClient(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "The client doesn't exist" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
@@ -32,10 +30,8 @@ async function createClient(req: Request, res: Response) {
         res.status(201).json({ error: "Client succesfully created" });
       }
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
@@ -51,10 +47,8 @@ async function updateClient(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "Client doesn't exist with that name" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
@@ -69,10 +63,8 @@ async function deleteClient(req: Request, res: Response) {
     } else {
       res.status(404).json({ message: "Client doesn't exist with that name" });
     }
-  } catch {
-    res
-      .status(500)
-      .json({ message: "There was an error querying the database, try again" });
+  } catch (e: any) {
+    res.status(500).json({ message: e.message });
   }
 }
 
