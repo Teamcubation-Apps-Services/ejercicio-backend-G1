@@ -62,7 +62,7 @@ describe("mongo/client/get/:name", () => {
 
   it("should throw 404 status if requested client does not exist", (done) => {
     chaiAppServer
-      .get(`/mongo/client/get/${randomString(30)}`)
+      .get(`/mongo/client/get/${randomString(50)}`)
       .end((err, res) => {
         expect(res.status).to.equal(404);
         done();
