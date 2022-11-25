@@ -12,15 +12,15 @@ function randomString(length: number): string {
   return result;
 }
 
-const clientExample = {
-  name: "juan",
+const clientV1 = {
+  name: randomString(50),
   lastName: "Perez",
   dni: "1",
   movements: [],
 };
 
-const clientV2 = { ...clientExample };
-clientV2.name = randomString(30);
+const clientV2 = { ...clientV1 };
+clientV2.name = randomString(50);
 
 chai.use(chaiHttp);
 const chaiAppServer = chai.request(app).keepOpen();
@@ -30,7 +30,7 @@ describe("mongo/client/create", () => {
     chaiAppServer
       .post("/mongo/client/create")
       .set("content-type", "application/json")
-      .send(clientExample)
+      .send(clientV1)
       .end((err, res) => {
         expect(res.status).to.equal(201);
         done();
@@ -41,7 +41,7 @@ describe("mongo/client/create", () => {
     chaiAppServer
       .post("/mongo/client/create")
       .set("content-type", "application/json")
-      .send(clientExample)
+      .send(clientV1)
       .end((err, res) => {
         expect(res.status).to.equal(403);
         done(err);
@@ -51,15 +51,13 @@ describe("mongo/client/create", () => {
 
 describe("mongo/client/get/:name", () => {
   it("should return a client", (done) => {
-    chaiAppServer
-      .get(`/mongo/client/get/${clientExample.name}`)
-      .end((err, res) => {
-        const { _id, __v, ...requestedClient } = res.body;
+    chaiAppServer.get(`/mongo/client/get/${clientV1.name}`).end((err, res) => {
+      const { _id, __v, ...requestedClient } = res.body;
 
-        expect(res.status).to.equal(200);
-        expect(requestedClient).to.be.deep.equal(clientExample);
-        done(err);
-      });
+      expect(res.status).to.equal(200);
+      expect(requestedClient).to.be.deep.equal(clientV1);
+      done(err);
+    });
   });
 
   it("should throw 404 status if requested client does not exist", (done) => {
@@ -76,7 +74,7 @@ describe("mongo/client/get/:name", () => {
 describe("mongo/client/update/:name", () => {
   it("should update a client", (done) => {
     chaiAppServer
-      .patch(`/mongo/client/update/${clientExample.name}`)
+      .patch(`/mongo/client/update/${clientV1.name}`)
       .set("content-type", "application/json")
       .send({ name: clientV2.name })
       .end((err, res) => {
@@ -88,7 +86,7 @@ describe("mongo/client/update/:name", () => {
     chaiAppServer
       .patch(`/mongo/client/update/${randomString(30)}`)
       .set("content-type", "application/json")
-      .send({ name: randomString(30) })
+      .send({ name: randomString(50) })
       .end((err, res) => {
         expect(res.status).to.equal(404);
         console.log(err);
