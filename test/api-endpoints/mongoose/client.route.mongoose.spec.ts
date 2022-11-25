@@ -1,31 +1,33 @@
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
-import { ClientRequest } from "http";
 import { app } from "../../../src/index";
 
-chai.use(chaiHttp);
+function randomString(length: number): string {
+  const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const charLength = chars.length;
+  let result = "";
+  for (var i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * charLength));
+  }
+  return result;
+}
 
 const clientExample = {
   name: "juan",
   lastName: "Perez",
-  dni: 1,
+  dni: "1",
   movements: [],
 };
 
-const randomName = "peppa";
+const clientV2 = { ...clientExample };
+clientV2.name = randomString(30);
 
-const clientExampleV2 = {
-  name: "juan",
-  lastName: "lopez",
-  dni: 1,
-  movements: [],
-};
+chai.use(chaiHttp);
+const chaiAppServer = chai.request(app).keepOpen();
 
-// Create client
 describe("mongo/client/create", () => {
   it("should create a client if not exists, and save it to database", (done) => {
-    chai
-      .request(app)
+    chaiAppServer
       .post("/mongo/client/create")
       .set("content-type", "application/json")
       .send(clientExample)
@@ -34,37 +36,35 @@ describe("mongo/client/create", () => {
         done();
       });
   });
-  // Now clientExample exists in mongoDB Atlas database
 
   it("should NOT create a client if it exists", (done) => {
-    chai
-      .request(app)
+    chaiAppServer
       .post("/mongo/client/create")
       .set("content-type", "application/json")
       .send(clientExample)
       .end((err, res) => {
         expect(res.status).to.equal(403);
-        done();
+        done(err);
       });
   });
 });
 
-// Get client
 describe("mongo/client/get/:name", () => {
   it("should return a client", (done) => {
-    chai
-      .request(app)
+    chaiAppServer
       .get(`/mongo/client/get/${clientExample.name}`)
       .end((err, res) => {
+        const { _id, __v, ...requestedClient } = res.body;
+
         expect(res.status).to.equal(200);
-        done();
+        expect(requestedClient).to.be.deep.equal(clientExample);
+        done(err);
       });
   });
 
   it("should throw 404 status if requested client does not exist", (done) => {
-    chai
-      .request(app)
-      .get(`/mongo/client/get/${randomName}}`)
+    chaiAppServer
+      .get(`/mongo/client/get/${randomString(30)}`)
       .end((err, res) => {
         expect(res.status).to.equal(404);
         done();
@@ -73,57 +73,46 @@ describe("mongo/client/get/:name", () => {
   404;
 });
 
-// // Update client
-// // TODO: revisar tests de update. Hay algo mal en el controlador? cómo completar el body de un patch??
+describe("mongo/client/update/:name", () => {
+  it("should update a client", (done) => {
+    chaiAppServer
+      .patch(`/mongo/client/update/${clientExample.name}`)
+      .set("content-type", "application/json")
+      .send({ name: clientV2.name })
+      .end((err, res) => {
+        expect(res.status).to.equal(204);
+        done(err);
+      });
+  });
+  it("should throw 404 status if requested client does not exist", (done) => {
+    chaiAppServer
+      .patch(`/mongo/client/update/${randomString(30)}`)
+      .set("content-type", "application/json")
+      .send({ name: randomString(30) })
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        console.log(err);
+        done();
+      });
+  });
+});
 
-// describe("mongo/client/update/:name", () => {
-//   it("should update a client", (done) => {
-//     chai
-//       .request(app)
-//       .patch(`/mongo/client/update/${clientExample.name}`)
-//       .set("content-type", "application/json")
-//       .send(clientExampleV2.lastName)
-//       .end((err, res) => {
-//         expect(res.status).to.equal(204);
-//         done();
-//       });
-//   });
-
-//   it("should throw 404 status if requested client does not exist", (done) => {
-//     chai
-//       .request(app)
-//       .patch(`/mongo/client/update/${randomName}`)
-//       .set("content-type", "application/json")
-//       .send(clientExampleV2)
-//       .end((err, res) => {
-//         expect(res.status).to.equal(404);
-//         console.log(err);
-//         done();
-//       });
-//   });
-//   404;
-// });
-
-// Delete client
 describe("mongo/client/delete/:name", () => {
   it("should delete a client", (done) => {
-    chai
-      .request(app)
-      .delete(`/mongo/client/delete/${clientExample.name}`)
+    chaiAppServer
+      .delete(`/mongo/client/delete/${clientV2.name}`)
       .end((err, res) => {
         expect(res.status).to.equal(204);
         done();
       });
   });
-  // clientExample removed from mongoDB Atlas database
 
-  // it("should throw 404 status if requested client does not exist", (done) => {
-  //   chai
-  //     .request(app)
-  //     .delete(`/mongo/client/delete/${clientExample.name}`)
-  //     .end((err, res) => {
-  //       expect(res.status).to.equal(404);
-  //       done();
-  //     });
-  // });
+  it("should throw 404 status if requested client does not exist", (done) => {
+    chaiAppServer
+      .delete(`/mongo/client/delete/${clientV2.name}`)
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        done(err);
+      });
+  });
 });

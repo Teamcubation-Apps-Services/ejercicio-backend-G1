@@ -2,7 +2,7 @@
   "scripts": {
     "dev": "npx nodemon src/index.ts",
     "build": "npx tsc",
-    "test": "mocha -r ts-node/register 'test/**/*.ts'"
+    "test": "mocha -r ts-node/register 'test/**/*.ts' --exit"
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
