@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import { MongoMovement } from "../../mongoTypes";
 const schema = new mongoose.Schema({
   name: {
     type: String,
@@ -13,8 +13,8 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  movimientos: {
-    type: Array,
+  movements: {
+    type: Array<MongoMovement>,
     default: [],
     required: true,
   },
