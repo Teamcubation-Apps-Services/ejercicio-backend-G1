@@ -16,11 +16,8 @@ const swaggerSpec = {
     ],
   },
   apis: [
-    `${path.join(
-      __dirname,
-      "../routes/mongoose/*.ts",
-      "../routes/sequelize/*.ts"
-    )}`,
+    `${path.join(__dirname, "../routes/mongoose/*.ts")}`,
+    `${path.join(__dirname, "../routes/sequelize/*.ts")}`,
   ],
 };
 
