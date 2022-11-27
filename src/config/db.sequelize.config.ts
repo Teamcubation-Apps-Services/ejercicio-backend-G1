@@ -8,9 +8,11 @@ try {
     dialect: "postgres",
   });
 
-  sequelizeDB.sync({
-    alter: true,
-  });
+  if (process.env.SQL_SYNC_ENABLED) {
+    sequelizeDB.sync({
+      alter: true,
+    });
+  }
 
   console.log("Connected to Postgres DB");
 } catch (e) {
