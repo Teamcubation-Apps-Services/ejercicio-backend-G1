@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import movementRepository from "../../repository/sequelize/movement.repository.sequelize";
+import clientRepository from "../../repository/sequelize/client.repository.sequelize";
+import cryptocurrencyRepository from "../../repository/sequelize/cryptocurrency.repository.sequelize";
 
 async function getMovement(req: Request, res: Response) {
   const { id } = req.params;
@@ -7,7 +9,7 @@ async function getMovement(req: Request, res: Response) {
 
   try {
     if (movement) {
-      res.status(200).json(movement);
+      res.status(200).json(movement.dataValues);
     } else {
       res.status(404).json({ message: "Movement doesn't exist" });
     }
@@ -20,10 +22,25 @@ async function createMovement(req: Request, res: Response) {
   const movementData = req.body;
 
   try {
-    const newMovement = await movementRepository.create(movementData);
+    const sender = await clientRepository.find(movementData.from);
+    const receiver = await clientRepository.find(movementData.to);
+    const crypto = await cryptocurrencyRepository.find(
+      movementData.cryptocurrency
+    );
 
-    if (newMovement) {
-      res.status(201).json({ error: "Movement succesfully created" });
+    if (!sender || !receiver || !crypto) {
+      res.status(404).json({
+        message: "Either the sender, receiver or cryptocurrency doesn't exist",
+      });
+    } else {
+      const newMovement = await movementRepository.create(movementData);
+
+      if (newMovement) {
+        res.status(201).json({
+          message: "Movement succesfully created",
+          id: newMovement.dataValues.id,
+        });
+      }
     }
   } catch (e: any) {
     res.status(500).json({ message: e.message });
@@ -35,7 +52,7 @@ async function updateMovement(req: Request, res: Response) {
   const movementData = req.body;
 
   try {
-    const updatedID = await movementRepository.update(id, movementData);
+    const [updatedID] = await movementRepository.update(id, movementData);
 
     if (updatedID) {
       res.status(204).json({ message: "Movement succesfully updated" });
