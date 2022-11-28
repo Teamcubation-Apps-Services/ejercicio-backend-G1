@@ -46,17 +46,15 @@ async function updateCryptocurrency(req: Request, res: Response) {
   const cryptocurrencyData = req.body;
 
   try {
-    const updatedID = await cryptocurrencyRepository.update(
-      name,
-      cryptocurrencyData
-    );
+    const { acknowledged, matchedCount, modifiedCount } =
+      await cryptocurrencyRepository.update(name, cryptocurrencyData);
 
-    if (updatedID) {
-      res.status(204).json({ message: "Cryptocurrency succesfully updated" });
-    } else {
+    if (!acknowledged || !matchedCount) {
       res
         .status(404)
         .json({ message: "Cryptocurrency doesn't exist with that name" });
+    } else if (modifiedCount) {
+      res.status(204).json({ message: "Cryptocurrency succesfully updated" });
     }
   } catch (e: any) {
     res.status(500).json({ message: e.message });
@@ -67,9 +65,9 @@ async function deleteCryptocurrency(req: Request, res: Response) {
   const { name } = req.params;
 
   try {
-    const deletedID = await cryptocurrencyRepository.remove(name);
+    const { deletedCount } = await cryptocurrencyRepository.remove(name);
 
-    if (deletedID) {
+    if (deletedCount) {
       res.status(204).json({ message: "Cryptocurrency succesfully deleted" });
     } else {
       res

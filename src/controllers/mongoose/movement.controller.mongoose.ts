@@ -35,12 +35,15 @@ async function updateMovement(req: Request, res: Response) {
   const movementData = req.body;
 
   try {
-    const updatedID = await movementRepository.update(id, movementData);
+    const { acknowledged, matchedCount, modifiedCount } =
+      await movementRepository.update(id, movementData);
 
-    if (updatedID) {
+    if (!acknowledged || !matchedCount) {
+      res
+        .status(404)
+        .json({ message: "Movement doesn't exist with that name" });
+    } else if (modifiedCount) {
       res.status(204).json({ message: "Movement succesfully updated" });
-    } else {
-      res.status(404).json({ message: "Movement doesn't exist" });
     }
   } catch (e: any) {
     res.status(500).json({ message: e.message });
@@ -51,9 +54,9 @@ async function deleteMovement(req: Request, res: Response) {
   const { id } = req.params;
 
   try {
-    const deletedID = await movementRepository.remove(id);
+    const { deletedCount } = await movementRepository.remove(id);
 
-    if (deletedID) {
+    if (deletedCount) {
       res.status(204).json({ message: "Movement succesfully deleted" });
     } else {
       res.status(404).json({ message: "Movement doesn't exist" });
