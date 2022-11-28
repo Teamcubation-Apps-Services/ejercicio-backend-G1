@@ -12,14 +12,14 @@ const user1 = {
   name: randomString(10),
   lastName: randomString(10),
   email: `${randomString(10)}@hotmail.com`,
-  dni: Math.floor(Math.random() * 15),
-  phone: 42019999,
+  dni: randomNumber(5),
+  phone: randomNumber(5),
 };
 
 const cryptocurrency = {
   name: randomString(30),
-  price: 150,
-  anualRevenue: 35,
+  price: randomNumber(5),
+  anualRevenue: randomNumber(5),
   description: randomString(30),
 };
 
@@ -57,7 +57,7 @@ describe("balance endpoints", () => {
     await cryptocurrencyRepository.remove(cryptocurrency.name);
   });
 
-  describe("sequelize/balance/create/Carlos", () => {
+  describe(`sequelize/balance/create/${balanceTesting.client}`, () => {
     it("should create a balance if not exists, and save it to database", (done) => {
       chai
         .request(app)
@@ -81,7 +81,7 @@ describe("balance endpoints", () => {
         });
     });
 
-    it("should not create a balance with invalid name", (done) => {
+    it("should not create a balance with invalid client", (done) => {
       chai
         .request(app)
         .post(`/sequelize/balance/create/${balanceTesting.client}`)
@@ -110,17 +110,15 @@ describe("balance endpoints", () => {
     it("should show a balance if exists", (done) => {
       chai
         .request(app)
-        .get(
-          `/sequelize/balance/get/${balanceTesting.client}/${balanceTesting.cryptocurrency}`
-        )
+        .get(`/sequelize/balance/get/${balanceTesting.client}/${balanceTesting.cryptocurrency}`)
         .set("content-type", "application/json")
         .send(balanceTesting)
         .end((err, res) => {
           const { client, amount, cryptocurrency } = res.body;
           const requestedBalance = {
-            client: client,
-            amount: amount,
-            cryptocurrency: cryptocurrency,
+            client,
+            amount,
+            cryptocurrency
           };
           expect(requestedBalance).to.be.deep.equal(balanceTesting);
           done(err);
@@ -130,11 +128,7 @@ describe("balance endpoints", () => {
     it("shouldn't return a balance if the client doesn't exist", (done) => {
       chai
         .request(app)
-        .get(
-          `/sequelize/balance/get/${randomString(39)}/${
-            balanceTesting.cryptocurrency
-          }`
-        )
+        .get(`/sequelize/balance/get/${randomString(39)}/${balanceTesting.cryptocurrency}`)
         .set("content-type", "application/json")
         .send(balanceTesting)
         .end((err, res) => {
@@ -148,9 +142,7 @@ describe("balance endpoints", () => {
     it("should update a balance if exists", (done) => {
       chai
         .request(app)
-        .patch(
-          `/sequelize/balance/update/${balanceTesting.client}/${balanceTesting.cryptocurrency}`
-        )
+        .patch(`/sequelize/balance/update/${balanceTesting.client}/${balanceTesting.cryptocurrency}`)
         .set("content-type", "application/json")
         .send(balanceTesting2)
         .end((err, res) => {
@@ -164,17 +156,15 @@ describe("balance endpoints", () => {
     it("should show the updated balance", (done) => {
       chai
         .request(app)
-        .get(
-          `/sequelize/balance/get/${balanceTesting.client}/${balanceTesting.cryptocurrency}`
-        )
+        .get(`/sequelize/balance/get/${balanceTesting.client}/${balanceTesting.cryptocurrency}`)
         .set("content-type", "application/json")
         .send(balanceTesting)
         .end((err, res) => {
           const { client, amount, cryptocurrency } = res.body;
           const requestedBalance = {
-            client: client,
-            amount: amount,
-            cryptocurrency: cryptocurrency,
+            client,
+            amount,
+            cryptocurrency,
           };
           expect(requestedBalance).to.be.deep.equal(balanceTesting2);
           done(err);
@@ -188,11 +178,7 @@ describe("balance endpoints", () => {
     it("should not delete balance if not exists", (done) => {
       chai
         .request(app)
-        .delete(
-          `/sequelize/balance/delete/${balanceTesting.client}/${randomString(
-            8
-          )}`
-        )
+        .delete(`/sequelize/balance/delete/${balanceTesting.client}/${randomString(8)}`)
         .end((err, res) => {
           expect(res.status).to.equal(404);
           done(err);
@@ -202,9 +188,7 @@ describe("balance endpoints", () => {
     it("should delete balance if exists", (done) => {
       chai
         .request(app)
-        .delete(
-          `/sequelize/balance/delete/${balanceTesting.client}/${balanceTesting.cryptocurrency}`
-        )
+        .delete(`/sequelize/balance/delete/${balanceTesting.client}/${balanceTesting.cryptocurrency}`)
         .end((err, res) => {
           expect(res.status).to.equal(204);
           done(err);
@@ -214,9 +198,7 @@ describe("balance endpoints", () => {
     it("should not delete balance if not exists", (done) => {
       chai
         .request(app)
-        .delete(
-          `/sequelize/balance/delete/${balanceTesting.client}/${balanceTesting.cryptocurrency}`
-        )
+        .delete(`/sequelize/balance/delete/${balanceTesting.client}/${balanceTesting.cryptocurrency}`)
         .end((err, res) => {
           expect(res.status).to.equal(404);
           done(err);
