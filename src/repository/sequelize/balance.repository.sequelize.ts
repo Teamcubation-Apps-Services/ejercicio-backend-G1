@@ -1,8 +1,8 @@
 import Balance from "../../models/sequelize/balance.model.sequelize";
 import { SequelizeBalance } from "../../sequelizeTypes";
 
-async function find(client: string, crypto: any) {
-  return await Balance.findOne({ where: { client, crypto } });
+async function find(client: string, cryptocurrency: any) {
+  return await Balance.findOne({ where: { client, cryptocurrency } });
 }
 
 async function create(balance: SequelizeBalance) {
@@ -11,14 +11,14 @@ async function create(balance: SequelizeBalance) {
 
 async function update(
   client: string,
-  crypto: string,
+  cryptocurrency: string,
   balance: SequelizeBalance
 ) {
-  return await Balance.update(balance, { where: { client, crypto } });
+  return await Balance.update(balance, { where: { client, cryptocurrency } });
 }
 
-async function remove(client: string, crypto: string) {
-  return await Balance.destroy({ where: { client, crypto } });
+async function remove(client: string, cryptocurrency: string) {
+  return await Balance.destroy({ where: { client, cryptocurrency } });
 }
 
 const balanceRepository = {
