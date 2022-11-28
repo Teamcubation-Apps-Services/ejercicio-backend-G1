@@ -42,12 +42,13 @@ async function updateBenefit(req: Request, res: Response) {
   const benefitData = req.body;
 
   try {
-    const updatedID = await benefitRepository.update(name, benefitData);
+    const { acknowledged, matchedCount, modifiedCount } =
+      await benefitRepository.update(name, benefitData);
 
-    if (updatedID) {
-      res.status(204).json({ message: "Benefit succesfully updated" });
-    } else {
+    if (!acknowledged || !matchedCount) {
       res.status(404).json({ message: "Benefit doesn't exist with that name" });
+    } else if (modifiedCount) {
+      res.status(204).json({ message: "Benefit succesfully updated" });
     }
   } catch (e: any) {
     res.status(500).json({ message: e.message });
@@ -58,9 +59,9 @@ async function deleteBenefit(req: Request, res: Response) {
   const { name } = req.params;
 
   try {
-    const deletedID = await benefitRepository.remove(name);
+    const { deletedCount } = await benefitRepository.remove(name);
 
-    if (deletedID) {
+    if (deletedCount) {
       res.status(204).json({ message: "Benefit succesfully deleted" });
     } else {
       res.status(404).json({ message: "Benefit doesn't exist with that name" });

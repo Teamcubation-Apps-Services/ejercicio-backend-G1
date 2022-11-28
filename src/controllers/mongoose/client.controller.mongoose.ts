@@ -40,12 +40,13 @@ async function updateClient(req: Request, res: Response) {
   const clientData = req.body;
 
   try {
-    const updatedID = await clientRepository.update(name, clientData);
+    const { acknowledged, matchedCount, modifiedCount } =
+      await clientRepository.update(name, clientData);
 
-    if (updatedID) {
-      res.status(204).json({ message: "Client succesfully updated" });
-    } else {
+    if (!acknowledged || !matchedCount) {
       res.status(404).json({ message: "Client doesn't exist with that name" });
+    } else if (modifiedCount) {
+      res.status(204).json({ message: "Client succesfully updated" });
     }
   } catch (e: any) {
     res.status(500).json({ message: e.message });
@@ -56,9 +57,9 @@ async function deleteClient(req: Request, res: Response) {
   const { name } = req.params;
 
   try {
-    const deletedID = await clientRepository.remove(name);
+    const { deletedCount } = await clientRepository.remove(name);
 
-    if (deletedID) {
+    if (deletedCount) {
       res.status(204).json({ message: "Client succesfully deleted" });
     } else {
       res.status(404).json({ message: "Client doesn't exist with that name" });

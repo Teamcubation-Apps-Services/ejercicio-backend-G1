@@ -5,6 +5,7 @@ import clientRepository from "../../../src/repository/sequelize/client.repositor
 import cryptocurrencyRepository from "../../../src/repository/sequelize/cryptocurrency.repository.sequelize";
 import movementRepository from "../../../src/repository/sequelize/movement.repository.sequelize";
 import randomString from "../../../src/utils/randomString";
+import randomNumber from "../../../src/utils/randomNumber";
 
 chai.use(chaiHttp);
 const chaiAppServer = chai.request(app).keepOpen();
@@ -13,57 +14,57 @@ const user1 = {
   name: randomString(10),
   lastName: randomString(10),
   email: `${randomString(10)}@hotmail.com`,
-  dni: Math.floor(Math.random() * 15),
-  phone: 42019999,
+  dni: randomNumber(8),
+  phone: randomNumber(8),
 };
 
 const user2 = {
   name: randomString(10),
   lastName: randomString(10),
   email: `${randomString(10)}@hotmail.com`,
-  dni: 87654321,
-  phone: 42018888,
+  dni: randomNumber(8),
+  phone: randomNumber(8),
 };
 
 const cryptocurrency = {
   name: randomString(10),
-  price: 150,
-  anualRevenue: 35,
+  price: randomNumber(3),
+  anualRevenue: randomNumber(2),
   description: randomString(10),
 };
 
 const movementForExistingSenderReceiverAndCrypto = {
   from: user1.name,
   type: randomString(10),
-  amount: 137,
-  fee: 12,
+  amount: randomNumber(3),
+  fee: randomNumber(2),
   to: user2.name,
   cryptocurrency: cryptocurrency.name,
 };
 
 const movementForNonExistingSender = {
   from: randomString(10),
-  type: "payment",
-  amount: 137,
-  fee: 12,
+  type: randomString(6),
+  amount: randomNumber(3),
+  fee: randomNumber(2),
   to: user2.name,
   cryptocurrency: cryptocurrency.name,
 };
 
 const movementForNonExistingReceiver = {
   from: user1.name,
-  type: "payment",
-  amount: 137,
-  fee: 12,
+  type: randomString(6),
+  amount: randomNumber(3),
+  fee: randomNumber(2),
   to: randomString(10),
   cryptocurrency: cryptocurrency.name,
 };
 
 const movementForNonExistingCrypto = {
   from: user1.name,
-  type: "payment",
-  amount: 137,
-  fee: 12,
+  type: randomString(6),
+  amount: randomNumber(3),
+  fee: randomNumber(2),
   to: user2.name,
   cryptocurrency: randomString(10),
 };
@@ -144,7 +145,7 @@ describe("movement endpoints", () => {
     });
 
     it("shouldn't find a movement whose id doesn't exist", (done) => {
-      chaiAppServer.get(getURL("130")).end((err, res) => {
+      chaiAppServer.get(getURL(String(randomNumber(6)))).end((err, res) => {
         expect(res.status).to.equal(404);
         done(err);
       });
@@ -155,16 +156,26 @@ describe("movement endpoints", () => {
     it("should update an existing movement", (done) => {
       chaiAppServer
         .patch(patchURL(newMovementID))
-        .send({ amount: 200 })
+        .send({ amount: randomNumber(4) })
         .end((err, res) => {
           expect(res.status).to.equal(204);
           done(err);
         });
     });
 
+    it("should throw error if ID is too log for an integer", (done) => {
+      chaiAppServer
+        .patch(patchURL(String(randomNumber(13))))
+        .send({ amount: randomNumber(4) })
+        .end((err, res) => {
+          expect(res.status).to.equal(500);
+          done(err);
+        });
+    });
+
     it("shouldn't update a movement whose id doesn't exist", (done) => {
       chaiAppServer
-        .patch(patchURL("187"))
+        .patch(patchURL(String(randomNumber(3))))
         .send({ type: randomString(5) })
         .end((err, res) => {
           expect(res.status).to.equal(404);
@@ -191,10 +202,12 @@ describe("movement endpoints", () => {
       });
 
       it("shouldn't delete a non existing movement", (done) => {
-        chaiAppServer.delete(deleteURL("1734")).end((err, res) => {
-          expect(res.status).to.equal(404);
-          done(err);
-        });
+        chaiAppServer
+          .delete(deleteURL(String(randomNumber(9))))
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            done(err);
+          });
       });
     });
   });
