@@ -80,8 +80,7 @@ describe("mongo/client/update/:name", () => {
       .send({ name: randomString(50) })
       .end((err, res) => {
         expect(res.status).to.equal(404);
-        console.log(err);
-        done();
+        done(err);
       });
   });
 });
