@@ -6,6 +6,7 @@ let sequelizeDB: Sequelize;
 try {
   sequelizeDB = new Sequelize(process.env.DB_POSTGRES_URL!, {
     dialect: "postgres",
+    logging: false,
   });
 
   if (process.env.SQL_SYNC_ENABLED) {

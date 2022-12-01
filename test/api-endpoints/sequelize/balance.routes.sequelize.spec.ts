@@ -106,7 +106,7 @@ describe("balance endpoints", () => {
     });
   });
 
-  describe(`/sequelize/balance/get/${balanceTesting.client}/${balanceTesting.cryptocurrency}`, () => {
+  describe(`sequelize/balance/get/${balanceTesting.client}/${balanceTesting.cryptocurrency}`, () => {
     it("should show a balance if exists", (done) => {
       chai
         .request(app)
@@ -138,7 +138,7 @@ describe("balance endpoints", () => {
     });
   });
 
-  describe(`/sequelize/balance/update/${balanceTesting.client}/${balanceTesting.cryptocurrency}`, () => {
+  describe(`sequelize/balance/update/${balanceTesting.client}/${balanceTesting.cryptocurrency}`, () => {
     it("should update a balance if exists", (done) => {
       chai
         .request(app)
@@ -152,7 +152,7 @@ describe("balance endpoints", () => {
     });
   });
 
-  describe(`/sequelize/balance/get/${balanceTesting.client}/${balanceTesting.cryptocurrency}`, () => {
+  describe(`sequelize/balance/get/${balanceTesting.client}/${balanceTesting.cryptocurrency}`, () => {
     it("should show the updated balance", (done) => {
       chai
         .request(app)
@@ -172,7 +172,7 @@ describe("balance endpoints", () => {
     });
   });
 
-  describe(`/sequelize/balance/delete/${balanceTesting.client}/${randomString(
+  describe(`sequelize/balance/delete/${balanceTesting.client}/${randomString(
     8
   )}`, () => {
     it("should not delete balance if not exists", (done) => {
