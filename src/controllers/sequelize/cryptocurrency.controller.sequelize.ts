@@ -33,7 +33,7 @@ async function createCryptocurrency(req: Request, res: Response) {
         cryptocurrencyData
       );
       if (newCryptocurrency) {
-        res.status(201).json({ error: "Cryptocurrency succesfully created" });
+        res.status(201).json({ message: "Cryptocurrency succesfully created" });
       }
     }
   } catch (e: any) {
