@@ -29,11 +29,10 @@ import {
  *      example:
  *        name: Alan
  *        cryptocurrency: Dogecoin
- *        amount: 103483   
+ *        amount: 103483
  */
 
 const balanceSequelizeRoutes = Router();
-
 
 /**
  * @swagger
@@ -53,11 +52,10 @@ const balanceSequelizeRoutes = Router();
  *        required: true
  *    tags: [Balance]
  *    responses:
- *      200: Balance created!    
+ *      200: Balance created!
  */
 
 balanceSequelizeRoutes.get("/get/:client/:cryptocurrency", getBalance);
-
 
 /**
  * @swagger
@@ -77,9 +75,9 @@ balanceSequelizeRoutes.get("/get/:client/:cryptocurrency", getBalance);
  *        application/json:
  *          schema:
  *            type: object
- *            ref: '#components/schemas/Balance'
+ *            $ref: '#components/schemas/Balance'
  *    responses:
- *      200: Balance created!    
+ *      200: Balance created!
  */
 
 balanceSequelizeRoutes.post("/create/:client", createBalance);
@@ -107,14 +105,12 @@ balanceSequelizeRoutes.post("/create/:client", createBalance);
  *        application/json:
  *          schema:
  *            type: object
- *            ref: '#components/schemas/Balance'
+ *            $ref: '#components/schemas/Balance'
  *    responses:
- *      200: Balance updated!    
+ *      200: Balance updated!
  */
 
-
 balanceSequelizeRoutes.patch("/update/:client/:cryptocurrency", updateBalance);
-
 
 /**
  * @swagger
@@ -134,9 +130,8 @@ balanceSequelizeRoutes.patch("/update/:client/:cryptocurrency", updateBalance);
  *        required: true
  *    tags: [Balance]
  *    responses:
- *      200: Balance deleted!    
+ *      200: Balance deleted!
  */
-
 
 balanceSequelizeRoutes.delete("/delete/:client/:cryptocurrency", deleteBalance);
 
