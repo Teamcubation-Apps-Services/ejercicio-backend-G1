@@ -34,7 +34,6 @@ import {
 
 const balanceSequelizeRoutes = Router();
 
-
 /**
  * @swagger
  * /sequelize/balance/get/{client}/{cryptocurrency}:
@@ -57,7 +56,6 @@ const balanceSequelizeRoutes = Router();
  */
 
 balanceSequelizeRoutes.get("/get/:client/:cryptocurrency", getBalance);
-
 
 /**
  * @swagger
@@ -112,9 +110,7 @@ balanceSequelizeRoutes.post("/create/:client", createBalance);
  *      200: Balance updated!
  */
 
-
 balanceSequelizeRoutes.patch("/update/:client/:cryptocurrency", updateBalance);
-
 
 /**
  * @swagger
@@ -136,7 +132,6 @@ balanceSequelizeRoutes.patch("/update/:client/:cryptocurrency", updateBalance);
  *    responses:
  *      200: Balance deleted!
  */
-
 
 balanceSequelizeRoutes.delete("/delete/:client/:cryptocurrency", deleteBalance);
 
